@@ -61,7 +61,7 @@ const AdminPage = () => {
       </div>
 
       {/* Leads Table */}
-      <div className="bg-base-200 rounded-lg shadow overflow-x-auto">
+      <div className="hidden sm:block bg-base-200 rounded-lg shadow">
         <table className="table table-zebra w-full">
           <thead>
             <tr>
@@ -85,7 +85,7 @@ const AdminPage = () => {
 
                   <td className="flex gap-2 items-center">
                     <select
-                      className="select select-bordered"
+                      className="select select-bordered w-15 md:w-32"
                       value={lead.status}
                       onChange={(e) => updateLead(lead._id, e.target.value)}
                     >
@@ -117,6 +117,63 @@ const AdminPage = () => {
           </tbody>
         </table>
       </div>
+      <div className="sm:hidden space-y-4">
+  {leads?.length > 0 ? (
+    leads.map((lead) => (
+      <div
+        key={lead._id}
+        className="bg-base-200 rounded-xl p-4 shadow-md space-y-3"
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center">
+          <h3 className="font-semibold text-base">{lead.name}</h3>
+
+          <button
+            className="btn btn-error btn-xs btn-outline"
+            onClick={() => setDeletingId(lead._id)}
+          >
+            <Trash size={14} />
+          </button>
+        </div>
+
+        {/* Info */}
+        <div className="text-sm space-y-1 text-base-content/80">
+          <p>
+            <span className="font-medium">Email:</span> {lead.email}
+          </p>
+          <p>
+            <span className="font-medium">Phone:</span> {lead.phone}
+          </p>
+          <p>
+            <span className="font-medium">City:</span> {lead.city}
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="divider my-1" />
+
+        {/* Status */}
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium">Lead Status</span>
+
+          <select
+            className="select select-bordered select-sm w-36"
+            value={lead.status}
+            onChange={(e) => updateLead(lead._id, e.target.value)}
+          >
+            <option value="pending">Pending</option>
+            <option value="contacted">Contacted</option>
+            <option value="converted">Converted</option>
+          </select>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p className="text-center text-base-content/60">No leads found</p>
+  )}
+</div>
+
+
       {deletingId && (
         <dialog className="modal modal-open ">
           <div

@@ -14,7 +14,7 @@ const Navbar = () => {
   }, [isModal]);
   return (
     <>
-      <div className="flex justify-between px-10 py-3 bg-base-200 rounded-md items-center">
+      <div className="flex justify-between sm:px-10 px-2 py-3 bg-base-200 rounded-md items-center">
         <div className="text-xl font-bold">Logo</div>
         <div className="flex gap-4 items-center">
           <ThemeController />
