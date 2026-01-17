@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 const PriceEstimator = () => {
@@ -15,6 +15,14 @@ const PriceEstimator = () => {
 
   const estimate =
     area && pricePerSqft[level] ? Math.round(area * pricePerSqft[level]) : 0;
+
+    useEffect(() => {
+      const handleEsc = (e) => {
+        if (e.key === "Escape") setIsModal(false);
+      };
+      window.addEventListener("keydown", handleEsc);
+      return () => window.removeEventListener("keydown", handleEsc);
+    }, [isModal]);
 
   return (
     <>
